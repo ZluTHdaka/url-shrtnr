@@ -1,0 +1,25 @@
+version: '4.24'
+
+networks:
+  url-shrtnr-databases-network:
+    driver: bridge
+
+volumes:
+  url-shrtnr-postgres-database-volume:
+  url-shrtnr-postgres-home-volume:
+
+services:
+  postgres:
+    image: postgres:15.2
+    container_name: url-shrtnr-postgres
+    restart: always
+    ports: ["5434:5432"]
+    environment:
+      POSTGRES_DB: url-shrtnr
+      POSTGRES_USER: url-shrtnr
+      POSTGRES_PASSWORD: url-shrtnr
+    volumes:
+      - url-shrtnr-postgres-database-volume:/var/lib/postgresql/data
+      - url-shrtnr-postgres-home-volume:/root
+    networks:
+      - url-shrtnr-databases-network
